@@ -2,6 +2,7 @@ import './channels';
 
 import './template';
 import './breakout';
+import './buster-busts-loose';
 import './cave-story';
 import './desert-bus';
 import './mega-man';
