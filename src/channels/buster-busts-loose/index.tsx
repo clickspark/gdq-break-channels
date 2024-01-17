@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import { css, keyframes } from '@emotion/react';
 import TweenNumber from '@gdq/lib/components/TweenNumber';
 
-import bg from './resources/bg.png';
+import bgfinal from './resources/bgfinal.png';
 
 registerChannel('Buster Busts Loose', 106, BusterBustsLoose, {
 	position: 'bottomLeft',
@@ -55,7 +55,7 @@ const TotalEl = styled.div`
 
 const bgAni = keyframes`
 	from { background-position: 0 0; }
-	to { background-position: -384px 0; }
+	to { background-position: -512px 0; }
 `;
 
 const Background1 = styled.div`
@@ -63,9 +63,9 @@ const Background1 = styled.div`
 	bottom: 0px;
 	left: 0;
 	width: 100%;
-	height: 32px;
+	height: 224px;
 	image-rendering: pixelated;
-	background-image: url(${bg});
-	background-size: 384px 32px;
-	animation: ${bgAni} 1s linear infinite;
+	background-image: url(${bgfinal});
+	background-size: 512px 224px;
+	animation: ${bgAni} 1.5s linear infinite;
 `;
