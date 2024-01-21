@@ -1,5 +1,6 @@
 import type { FormattedDonation, Total } from '@gdq/types/tracker';
 import { ChannelProps, registerChannel } from '../channels';
+import React, { useEffect, useState } from 'react';
 
 import { useListenFor, useReplicant } from 'use-nodecg';
 import styled from '@emotion/styled';
@@ -8,6 +9,7 @@ import TweenNumber from '@gdq/lib/components/TweenNumber';
 
 import bgfinal2 from './resources/bgfinal2.png';
 import busterrun from './resources/buster_run.png';
+import busterjump from './resources/buster_jump.png';
 
 registerChannel('Buster Busts Loose', 106, BusterBustsLoose, {
 	position: 'bottomLeft',
@@ -16,24 +18,82 @@ registerChannel('Buster Busts Loose', 106, BusterBustsLoose, {
 });
 
 function BusterBustsLoose(props: ChannelProps) {
+	
+
+	const buster_running = keyframes`
+		from { background-position: 0px }
+		to { background-position: -768px }
+	`
+
+	const buster_jumping = keyframes`
+		from { background-position: 0px }
+		to { background-position: -288px }
+	`
+
 	const [total] = useReplicant<Total | null>('total', null);
+	const [busterState, setBusterState] = useState({ 
+    bg: busterrun, 
+    ani: buster_running,
+		bottom: 47,
+    width: 96, 
+    height: 64, 
+    duration: 0.26, 
+    steps: 8, 
+    iteration: 'infinite'
+	});
+
+	const Buster = styled.div`
+		position: absolute;
+		bottom: ${busterState.bottom}px;
+		left: 300px;
+		width: ${busterState.width}px;
+		height: ${busterState.height}px;
+		background: url(${busterState.bg});
+		animation: ${busterState.ani} ${busterState.duration}s steps(${busterState.steps}) ${busterState.iteration};
+	`
+
+	
 
 	useListenFor('donation', (donation: FormattedDonation) => {
 		/**
 		 * Respond to a donation.
 		 */
-		
+
+		// short jump
+		shortJump();
 	});
+
+	useEffect(() => {
+    const timer = setTimeout(() => {
+        setBusterState(prevState => ({ 
+            ...prevState, 
+            bottom: 100, 
+            transition: 'bottom 5s ease-in-out' 
+        }));
+    }, 1000);
+    return () => clearTimeout(timer);
+}, []);
+
+	const shortJump = () => {
+		setBusterState({ bg: busterjump, ani: buster_jumping, bottom: 112, width: 96, height: 96, duration: 1, steps: 3, iteration: '1' });
+		setTimeout(() => setBusterState({ bg: busterrun, ani: buster_running, bottom: 47, width: 96, height: 64, duration: 0.26, steps: 8, iteration: 'infinite' }), 1000);
+	};
+
+	
 
 	return (
 		<Container>
       <Background1/>
-			<BusterRun/>
+			<Buster/>
 			<TotalEl>
 				$<TweenNumber value={Math.floor(total?.raw ?? 0)} />
 			</TotalEl>
 		</Container>
 	);
+}
+
+function shortJump(props: ChannelProps) {
+	
 }
 
 const Container = styled.div`
@@ -72,23 +132,3 @@ const Background1 = styled.div`
 	background-size: 759px 332px;
 	animation: ${bgAni} 2.2s linear infinite;
 `;
-
-const buster_running = keyframes`
-	from { background-position: 0px }
-	to { background-position: -768px }
-`
-
-const buster_test = keyframes`
-	from { background-position: 0px }
-	to { background-position: -384px }
-`
-
-const BusterRun = styled.div`
-	position: absolute;
-	bottom: 47px;
-	left: 300px;
-	width: 96px;
-	height: 64px;
-	background: url(${busterrun});
-	animation: ${buster_running} 0.26s steps(8) infinite;
-	`
