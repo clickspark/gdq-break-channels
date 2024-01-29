@@ -1,15 +1,26 @@
 import type { FormattedDonation, Total } from '@gdq/types/tracker';
 import { ChannelProps, registerChannel } from '../channels';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useListenFor, useReplicant } from 'use-nodecg';
 import styled from '@emotion/styled';
-import { css, keyframes } from '@emotion/react';
+import { keyframes } from '@emotion/react';
 import TweenNumber from '@gdq/lib/components/TweenNumber';
 
 import bgfinal2 from './resources/bgfinal2.png';
 import busterrun from './resources/buster_run.png';
 import busterjump from './resources/buster_jump.png';
+
+interface BusterProps {
+	bottom: number;
+	width: number;
+	height: number;
+	bg: string;
+	ani: string;
+	duration: number;
+	steps: number;
+	iteration: string;
+}
 
 registerChannel('Buster Busts Loose', 106, BusterBustsLoose, {
 	position: 'bottomLeft',
@@ -26,8 +37,61 @@ function BusterBustsLoose(props: ChannelProps) {
 	`
 
 	const buster_jumping = keyframes`
-		from { background-position: 0px }
-		to { background-position: -288px }
+		0% { 
+			background-position: 0px;
+			transform: translateY(0px); 
+		}
+
+		4.34% {
+			background-position: 0px; 
+		}
+
+		4.35% {
+			background-position: -96px;
+			transform: translateY(-21px); 
+		}
+
+		8.7% {
+			transform: translateY(-30px);
+		}
+
+		21.75% {
+			transform: translateY(-48px);
+		}
+
+		43.5% {
+			transform: translateY(-63px);
+		}
+
+		52.2% {
+			transform: translateY(-63px);
+		}
+
+		56.54% {
+			background-position: -96px;
+		}
+
+		56.55% {
+			background-position: -192px;
+			transform: translateY(-60px);
+		}
+
+		78.3% {
+			transform: translateY(-45px);
+		}
+
+		91.35% {
+			transform: translateY(-27px);
+		}
+
+		95.7% {
+			transform: translateY(-18px);
+		}
+		
+		100% { 
+			background-position: -192px;
+			transform: translateY(0px); 
+		}
 	`
 
 	const [total] = useReplicant<Total | null>('total', null);
@@ -42,15 +106,15 @@ function BusterBustsLoose(props: ChannelProps) {
     iteration: 'infinite'
 	});
 
-	const Buster = styled.div`
-		position: absolute;
-		bottom: ${busterState.bottom}px;
-		left: 300px;
-		width: ${busterState.width}px;
-		height: ${busterState.height}px;
-		background: url(${busterState.bg});
-		animation: ${busterState.ani} ${busterState.duration}s steps(${busterState.steps}) ${busterState.iteration};
-	`
+	const Buster = styled.div<BusterProps>`
+    position: absolute;
+    bottom: ${props => props.bottom}px;
+    left: 300px;
+    width: ${props => props.width}px;
+    height: ${props => props.height}px;
+    background: url(${props => props.bg});
+    animation: ${props => props.ani} ${props => props.duration}s steps(${props => props.steps}) ${props => props.iteration};
+`;
 
 	
 
@@ -60,23 +124,24 @@ function BusterBustsLoose(props: ChannelProps) {
 		 */
 
 		// short jump
-		shortJump();
+			shortJump();			
 	});
 
-	useEffect(() => {
-    const timer = setTimeout(() => {
-        setBusterState(prevState => ({ 
-            ...prevState, 
-            bottom: 100, 
-            transition: 'bottom 5s ease-in-out' 
-        }));
-    }, 1000);
-    return () => clearTimeout(timer);
-}, []);
 
 	const shortJump = () => {
-		setBusterState({ bg: busterjump, ani: buster_jumping, bottom: 112, width: 96, height: 96, duration: 1, steps: 3, iteration: '1' });
-		setTimeout(() => setBusterState({ bg: busterrun, ani: buster_running, bottom: 47, width: 96, height: 64, duration: 0.26, steps: 8, iteration: 'infinite' }), 1000);
+    setBusterState(prevState => ({
+        ...prevState,
+        bg: busterjump,
+        ani: buster_jumping,
+        width: 96,
+        height: 96,
+        duration: 0.42,
+        iteration: '1'
+    }));
+
+    setTimeout(() => {
+			setBusterState({ bg: busterrun, ani: buster_running, bottom: 47, width: 96, height: 64, duration: 0.26, steps: 8, iteration: 'infinite' })
+		}, 420);
 	};
 
 	
@@ -84,16 +149,12 @@ function BusterBustsLoose(props: ChannelProps) {
 	return (
 		<Container>
       <Background1/>
-			<Buster/>
+			<Buster {...busterState}/>
 			<TotalEl>
 				$<TweenNumber value={Math.floor(total?.raw ?? 0)} />
 			</TotalEl>
 		</Container>
 	);
-}
-
-function shortJump(props: ChannelProps) {
-	
 }
 
 const Container = styled.div`
