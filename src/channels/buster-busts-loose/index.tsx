@@ -6,8 +6,8 @@ import { useListenFor, useReplicant } from 'use-nodecg';
 import styled from '@emotion/styled';
 import TweenNumber from '@gdq/lib/components/TweenNumber';
 
-import busterrun from './resources/buster_run.png';
-import busterjump from './resources/buster_jump.png';
+import busterrun from './assets/buster_run.png';
+import busterjump from './assets/buster_jump.png';
 import {buster_running, buster_jumping } from './keyframes';
 import { Container, TotalEl, Background1 } from './styles';
 
