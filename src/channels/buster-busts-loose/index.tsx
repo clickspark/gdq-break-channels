@@ -57,6 +57,7 @@ function BusterBustsLoose(props: ChannelProps) {
 		 */
 
 		// short jump
+		console.log(donation)
 			shortJump();			
 	});
 

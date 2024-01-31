@@ -11,13 +11,24 @@ export const Container = styled.div`
 `;
 
 export const TotalEl = styled.div`
-	font-family: gdqpixel;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  padding-right: 10px;
+  background-color: rgba(20, 20, 20, 0.5);
+  width: 350px;
+  height: 80px;
+	
+  font-family: 'gdqpixel';
 	font-size: 46px;
-	color: black;
-	position: absolute;
-	right: 0%;
-	top: 15%;
-	transform: translate(-50%, -50%);
+  color: #ffffff;
+  -webkit-text-stroke: 3px #00deff;
+  text-shadow: 5px 5px 0px #0039d6;
+	
+  position: absolute;
+	right: 1%;
+	top: 2%;
+	
 `;
 
 export const Background1 = styled.div`
