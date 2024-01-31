@@ -17,7 +17,7 @@ export const TotalEl = styled.div`
   align-items: center;
   padding-right: 10px;
   background-color: rgba(20, 20, 20, 0.7);
-  width: 340px;
+  width: 300px;
   height: 80px;
 	
   font-family: 'BusterTotal';

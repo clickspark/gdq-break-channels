@@ -83,6 +83,7 @@ function BusterBustsLoose(props: ChannelProps) {
 			<Buster {...busterState}/>
 			<TotalEl>
 				$<TweenNumber value={Math.floor(total?.raw ?? 0)} />
+				{/*$<TweenNumber value={3245748} />*/}
 			</TotalEl>
 		</Container>
 	);
