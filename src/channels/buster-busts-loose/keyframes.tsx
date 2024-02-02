@@ -1,8 +1,36 @@
 import { keyframes } from "@emotion/react";
+import flag_01 from './assets/flag_01.png';
+import flag_02 from './assets/flag_02.png';
+import flag_03 from './assets/flag_03.png';
 
 export const bgAni = keyframes`
 	from { background-position: 0 0; }
 	to { background-position: -759px 0; }
+`;
+
+/* Controls the right to left movement of the flags */
+export const flagMove = keyframes`
+	from { transform: translateX(0); }
+	to { transform: translateX(-506px); }
+`;
+
+/* Controls the waving animation of the flags */
+export const flagWave = keyframes`
+	0% {
+		background-image: url(${flag_01});
+	}
+
+	33.3% {
+		background-image: url(${flag_02});
+	}
+
+	66.6% {
+		background-image: url(${flag_03});
+	}
+
+	100% {
+		background-image: url(${flag_01});
+	}
 `;
 
 export const buster_running = keyframes`

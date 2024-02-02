@@ -9,7 +9,7 @@ import TweenNumber from '@gdq/lib/components/TweenNumber';
 import busterrun from './assets/buster_run.png';
 import busterjump from './assets/buster_jump.png';
 import {buster_running, buster_jumping } from './keyframes';
-import { Container, TotalEl, Background1 } from './styles';
+import { Container, TotalEl, Background1, FlagBox, Flag } from './styles';
 
 interface BusterProps {
 	bottom: number;
@@ -80,6 +80,9 @@ function BusterBustsLoose(props: ChannelProps) {
 	return (
 		<Container>
       <Background1/>
+			<FlagBox>
+				<Flag />
+			</FlagBox>
 			<Buster {...busterState}/>
 			<TotalEl>
 				$<TweenNumber value={Math.floor(total?.raw ?? 0)} />

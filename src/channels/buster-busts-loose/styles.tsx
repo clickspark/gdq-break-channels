@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import bg from './assets/bg.png';
-import { bgAni } from './keyframes';
+import donation_total_bg from './assets/donation_total_bg.png';
+import { bgAni, flagMove, flagWave } from './keyframes';
+import flag_01 from './assets/flag_01.png';
 import './font.css';
 
 export const Container = styled.div`
@@ -9,6 +11,7 @@ export const Container = styled.div`
 	height: 100%;
 	padding: 0;
 	margin: 0;
+	overflow: hidden;
 `;
 
 export const TotalEl = styled.div`
@@ -16,12 +19,13 @@ export const TotalEl = styled.div`
   justify-content: right;
   align-items: center;
   padding-right: 10px;
-  background-color: rgba(20, 20, 20, 0.7);
+  background-image: url(${donation_total_bg});
+	background-size: 100% 100%;
   width: 300px;
   height: 80px;
 	
   font-family: 'BusterTotal';
-	font-size: 60px;
+	font-size: 58px;
   color: #ffffff;
   -webkit-text-stroke: 2px #00deff;
   text-shadow: 3px 3px 0px #0039d6;
@@ -41,4 +45,36 @@ export const Background1 = styled.div`
 	background-image: url(${bg});
 	background-size: 759px 332px;
 	animation: ${bgAni} 2.2s linear infinite;
+`;
+
+/* Controls the right to left movement of the flags */
+export const FlagBox = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 150%;
+	height: 95px;
+	background-color: transparent;
+	animation: ${flagMove} 1.471s linear infinite;
+	overflow: hidden;
+	border: none; // Added this line
+  outline: none; // Added this line
+  box-shadow: none; // Added this line
+`;
+
+/* Controls the waving animation of the flags */
+export const Flag = styled.img`
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: 506px 95px;
+	background-image: url(${flag_01});
+	animation: ${flagWave} 0.6s linear infinite;
+	border: 0px solid transparent; // Added this line
+  outline: none; // Added this line
+  box-shadow: none; // Added this line
+	margin: 0; // Added this line
+	padding: 0; // Added this line
 `;
