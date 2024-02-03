@@ -56,10 +56,6 @@ export const FlagBox = styled.div`
 	height: 95px;
 	background-color: transparent;
 	animation: ${flagMove} 1.471s linear infinite;
-	overflow: hidden;
-	border: none; // Added this line
-  outline: none; // Added this line
-  box-shadow: none; // Added this line
 `;
 
 /* Controls the waving animation of the flags */
@@ -72,9 +68,4 @@ export const Flag = styled.img`
 	background-size: 506px 95px;
 	background-image: url(${flag_01});
 	animation: ${flagWave} 0.6s linear infinite;
-	border: 0px solid transparent; // Added this line
-  outline: none; // Added this line
-  box-shadow: none; // Added this line
-	margin: 0; // Added this line
-	padding: 0; // Added this line
 `;
